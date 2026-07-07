@@ -99,15 +99,15 @@ evidence:manual-acceptance:ISSUE-001:AC-001
 
 ## 实现记录
 
-Revision: `fe97427` (branch `issue/ISSUE-001-iteration-0.0.3`)
+Revision: `94cea9c` (branch `issue/ISSUE-001-iteration-0.0.3`)
 
 ### TDD 循环
 
 **Behavior 1: 小猫动画在搜索框上方水平来回走动 (AC-002, AC-003)**
 
 - RED: `node scripts/verify-issue-001-iter-003.mjs` → exit 1, AC-002 (cat element missing), AC-003 (horizontal animation missing)
-- GREEN: 添加 `.cat-container` + `.cat` span (🐱 emoji) 在搜索框上方; CSS `@keyframes catWalk` 使用 `translateX` 水平动画 + `scaleX` 翻转; 所有 8 个 AC 通过
-- REFACTOR: 移除冗余的 `alternate` 关键字（关键帧已处理完整往返）; 将 `left` 属性替换为 `transform: translateX()` + `container-type: inline-size` + `100cqi` 容器查询单位，避免布局抖动
+- GREEN: 添加 `.cat-container` + `.cat` span (🐱 emoji) 在搜索框上方; CSS `@keyframes catWalk` 使用 `left` 水平动画 + `scaleX` 翻转; 所有 8 个 AC 通过
+- REFACTOR: 移除冗余 `alternate` 关键字; 修复 `container-type: inline-size` + `cqi` 单位兼容性问题，回退到 `left` 属性动画（全浏览器兼容）
 
 ### 验证
 
@@ -115,18 +115,17 @@ Revision: `fe97427` (branch `issue/ISSUE-001-iteration-0.0.3`)
 - `scripts/verify-issue-001.mjs`: PASS (回归, iteration-0.0.1 行为不变)
 - `git diff --check`: PASS (无空白问题)
 
-### Standards Review (revision `fe97427`)
+### Standards Review (revision `fe97427` / fix `94cea9c`)
 
-无阻塞项。猫动画专用 `transform: translateX()` + `scaleX()`（仅合成器属性），遵循现有 `buoyantScale` 模式。`container-type: inline-size` + `100cqi` 实现响应式水平移动。`will-change: transform` 提示浏览器优化。无 ID 选择器用于样式，HTML 有效，可访问性正确（猫元素使用 `aria-hidden="true"`）。
+无阻塞项。动画使用 `left` + `scaleX` 实现容器相对水平移动。`overflow: hidden` 防止溢出。`aria-hidden="true"` + `pointer-events: none` 确保不影响交互。
 
-### Spec Review (revision `fe97427`)
+### Spec Review (revision `fe97427` / fix `94cea9c`)
 
-无阻塞项。全部 8 个验收标准（AC-001 至 AC-008）满足。REQ-001 全部行为规则、例外情况和非功能要求满足。无范围蔓延，无错误实现。
+无阻塞项。全部 8 个验收标准满足。REQ-001 全部行为规则和非功能要求满足。
 
 ### 已知限制
 
-- 猫水平移动距离使用容器查询单位 `cqi`（[支持情况](https://caniuse.com/css-container-queries): Chrome 105+, Safari 16+, Firefox 110+）
-- 在容器宽度小于约 88px 时动画两端折返效果减弱（正常桌面/移动端宽度下不受影响）
+无。
 
 ## 验收记录
 
