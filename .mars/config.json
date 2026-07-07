@@ -1,0 +1,22 @@
+{
+  "config_schema_version": "mars.config/v2",
+  "iteration_location": "docs/iterations",
+  "issue_tracker": {
+    "type": "github",
+    "adapter_id": "github-gh",
+    "locator": "miwucc/mars-skill-example"
+  },
+  "requirement_owner": "miwucc",
+  "technical_owner": "miwucc",
+  "delivery_owner": "miwucc",
+  "domain_docs": [
+    "CONTEXT.md",
+    "docs/adr/"
+  ],
+  "build_test_commands": [
+    "git diff --check"
+  ],
+  "acceptance_environment": "local development environment",
+  "evidence_conventions": "Store acceptance and implementation evidence under the active Iteration directory.",
+  "artifact_language": "zh-CN"
+}

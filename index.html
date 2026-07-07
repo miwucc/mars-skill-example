@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Static Search Trigger</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: #f7f9fc;
+        color: #172033;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        background:
+          linear-gradient(135deg, rgba(40, 116, 240, 0.14), transparent 34%),
+          linear-gradient(315deg, rgba(243, 64, 127, 0.15), transparent 38%),
+          #f7f9fc;
+      }
+
+      main {
+        width: min(720px, calc(100vw - 32px));
+        display: grid;
+        gap: 36px;
+        justify-items: center;
+      }
+
+      .search-panel {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+      }
+
+      label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      input {
+        min-width: 0;
+        height: 52px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 0 16px;
+        font-size: 17px;
+        background: #ffffff;
+        color: #172033;
+        outline: none;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      input:focus {
+        border-color: #2874f0;
+        box-shadow:
+          0 0 0 4px rgba(40, 116, 240, 0.14),
+          0 12px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      button {
+        height: 52px;
+        border: 0;
+        border-radius: 8px;
+        padding: 0 22px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #ffffff;
+        background: #172033;
+        cursor: pointer;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+      }
+
+      button:focus-visible {
+        outline: 4px solid rgba(40, 116, 240, 0.24);
+        outline-offset: 3px;
+      }
+
+      .welcome-message {
+        margin: 0;
+        text-align: center;
+        font-size: clamp(48px, 10vw, 112px);
+        line-height: 1.05;
+        font-weight: 950;
+        letter-spacing: 0;
+        background: linear-gradient(90deg, #ff3f8f, #ffb000, #20c997, #2874f0, #9b5cff);
+        background-size: 320% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow:
+          0 0 18px rgba(255, 63, 143, 0.42),
+          0 0 32px rgba(40, 116, 240, 0.32),
+          0 10px 34px rgba(15, 23, 42, 0.18);
+        animation:
+          gradientFlow 4s linear infinite,
+          buoyantScale 2.6s ease-in-out infinite;
+      }
+
+      .is-hidden {
+        display: none;
+      }
+
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 320% 50%;
+        }
+      }
+
+      @keyframes buoyantScale {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-8px) scale(1.035);
+        }
+      }
+
+      @media (max-width: 560px) {
+        .search-panel {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="search-panel">
+        <label for="searchInput">搜索内容</label>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="输入任意内容" />
+        <button id="searchButton" type="button">搜索</button>
+      </div>
+
+      <p id="welcomeMessage" class="welcome-message is-hidden" aria-hidden="true" hidden>
+        welcome！good job！
+      </p>
+    </main>
+
+    <script>
+      const searchButton = document.getElementById("searchButton");
+      const welcomeMessage = document.getElementById("welcomeMessage");
+
+      function showWelcomeMessage() {
+        welcomeMessage.textContent = "welcome！good job！";
+        welcomeMessage.hidden = false;
+        welcomeMessage.setAttribute("aria-hidden", "false");
+        welcomeMessage.classList.remove("is-hidden");
+      }
+
+      searchButton.addEventListener("click", showWelcomeMessage);
+    </script>
+  </body>
+</html>
