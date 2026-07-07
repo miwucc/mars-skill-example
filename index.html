@@ -90,6 +90,23 @@
         outline-offset: 3px;
       }
 
+      .cat-container {
+        width: 100%;
+        height: 64px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cat {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        font-size: 40px;
+        animation: catWalk 3s ease-in-out infinite;
+        user-select: none;
+        pointer-events: none;
+      }
+
       .welcome-message {
         margin: 0;
         text-align: center;
@@ -113,6 +130,29 @@
 
       .is-hidden {
         display: none;
+      }
+
+      @keyframes catWalk {
+        0% {
+          left: 0;
+          transform: scaleX(1);
+        }
+        49% {
+          left: calc(100% - 48px);
+          transform: scaleX(1);
+        }
+        50% {
+          left: calc(100% - 48px);
+          transform: scaleX(-1);
+        }
+        99% {
+          left: 0;
+          transform: scaleX(-1);
+        }
+        100% {
+          left: 0;
+          transform: scaleX(1);
+        }
       }
 
       @keyframes gradientFlow {
@@ -147,6 +187,10 @@
   </head>
   <body>
     <main>
+      <div class="cat-container">
+        <span class="cat" aria-hidden="true">🐱</span>
+      </div>
+
       <div class="search-panel">
         <label for="searchInput">搜索内容</label>
         <input id="searchInput" type="search" autocomplete="off" placeholder="输入任意内容" />
