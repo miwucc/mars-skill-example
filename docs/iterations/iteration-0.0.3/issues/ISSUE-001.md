@@ -3,7 +3,7 @@ schema_version: mars.issue/v1
 artifact_type: issue
 id: ISSUE-001
 iteration: "iteration-0.0.3"
-status: ready-for-acceptance
+status: accepted
 review_status: current
 baseline_revision: "REQ-BASE-001"
 design_revision: "DESIGN-001"
@@ -99,7 +99,7 @@ evidence:manual-acceptance:ISSUE-001:AC-001
 
 ## 实现记录
 
-Revision: `94cea9c` (branch `issue/ISSUE-001-iteration-0.0.3`)
+Revision: `b1b4a70` (branch `issue/ISSUE-001-iteration-0.0.3`)
 
 ### TDD 循环
 
@@ -107,7 +107,7 @@ Revision: `94cea9c` (branch `issue/ISSUE-001-iteration-0.0.3`)
 
 - RED: `node scripts/verify-issue-001-iter-003.mjs` → exit 1, AC-002 (cat element missing), AC-003 (horizontal animation missing)
 - GREEN: 添加 `.cat-container` + `.cat` span (🐱 emoji) 在搜索框上方; CSS `@keyframes catWalk` 使用 `left` 水平动画 + `scaleX` 翻转; 所有 8 个 AC 通过
-- REFACTOR: 移除冗余 `alternate` 关键字; 修复 `container-type: inline-size` + `cqi` 单位兼容性问题，回退到 `left` 属性动画（全浏览器兼容）
+- REFACTOR: 移除冗余 `alternate` 关键字; 修复 `container-type: inline-size` + `cqi` 单位兼容性问题，回退到 `left` 属性动画（全浏览器兼容）; 替换 emoji 为内联 SVG 猫插图，增加腿部摆动、身体起伏、尾巴甩动、眨眼动画
 
 ### 验证
 
@@ -129,8 +129,20 @@ Revision: `94cea9c` (branch `issue/ISSUE-001-iteration-0.0.3`)
 
 ## 验收记录
 
-状态: pending
-验收人: 待验收阶段补充。
-验收时间: 待验收阶段补充。
-验收 Revision: 待验收阶段补充。
-证据: 待验收阶段补充。
+状态: accepted
+验收人: miwucc
+验收时间: 2026-07-07T22:40:00+08:00
+验收 Revision: b1b4a70
+证据:
+- 手动打开 index.html，确认搜索框和搜索按钮可见 (AC-001)
+- 确认 SVG 小猫在搜索框上方水平来回走动，腿部摆动、尾巴甩动、身体起伏、眨眼动画正常 (AC-002, AC-003)
+- 刷新页面后小猫动画重新展示 (AC-004)
+- 源码无 localStorage/sessionStorage/cookie/fetch (AC-005)
+- 小猫动画不遮挡搜索框、按钮或欢迎文案 (AC-006)
+- 点击搜索按钮后 welcome！good job！正常展示 (AC-007)
+- 页面无外部资源或后端调用 (AC-008)
+- `scripts/verify-issue-001-iter-003.mjs`: PASS
+- `scripts/verify-issue-001.mjs`: PASS (回归)
+- `git diff --check`: PASS
+- mars-traceability: PASS
+- mars-workflow-gate acceptance: PASS (11/11)
